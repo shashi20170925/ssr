@@ -5,6 +5,7 @@ import createStore from './helpers/createStore';
 import {matchRoutes} from 'react-router-config';
 import Routes from './client/Routes';
 
+import proxy from 'express-http-proxy';
 //import React from 'react';
 //import {renderToString} from 'react-dom/server';
 //import Home from './client/components/Home';
@@ -15,9 +16,18 @@ import Routes from './client/Routes';
 //const Home = require('./client/components/Home').default;
 
 const app = express();
+app.use(
+    '/api',
+    proxy('http://react-ssr-api.herokuapp.com', {
+      proxyReqOptDecorator(opts) {
+        opts.headers['x-forwarded-host'] = 'localhost:3000';
+        return opts;
+      }
+    })
+  );
 app.use(express.static('public'));
 app.get('*', (req, res) => {
-    const store=createStore();
+    const store=createStore(req);
 
    const promises=matchRoutes(Routes,req.path).map(( {route})=>{
       return route.loadData?route.loadData(store):null;   
