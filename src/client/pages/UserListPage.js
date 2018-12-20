@@ -5,7 +5,6 @@ import {fetchUsers} from '../actions';
 class UserList extends Component{
 
     componentDidMount(){
-        console.log(" in the userList ", this.props)
 
 this.props.fetchUsers();
 
@@ -18,7 +17,6 @@ renderUsers() {
 
 }
     render(){
-        console.log(" in the userList in the render", this.props.users)
 
 return (
 <div>
@@ -35,13 +33,21 @@ return (
 }
 
 function mapStateToProps(state) {
-    console.log(" in the userList mapStateToProps", state)
 
     return {
         users: state.users
     };
 }
 
+function loadData(store){
+  return store.dispatch(fetchUsers());
+}
+
   
 
-export default connect(mapStateToProps,{fetchUsers})(UserList);
+export default 
+{
+    loadData,
+component:  connect(mapStateToProps,{fetchUsers})(UserList),
+
+}
