@@ -8,10 +8,10 @@ import serialize from 'serialize-javascript';
 //import Home from '../client/components/Home';
 
 
-export default(req, store)=>{
+export default(req, store, context)=>{
     const content = renderToString( 
         <Provider store={store}>
-        <StaticRouter location={req.path} context={{}}>
+        <StaticRouter location={req.path} context={content}>
       <div>
       {renderRoutes(Routes)}
       </div>
@@ -20,6 +20,8 @@ export default(req, store)=>{
    );
     return (`<html>
         <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
             </head>
 <body>
 <div id="root"> 

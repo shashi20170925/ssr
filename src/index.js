@@ -35,7 +35,10 @@ app.get('*', (req, res) => {
      Promise.all(promises).then(()=>{
         res.send(renderer(req, store));
 
-     })
+     }).catch(()=>{
+res.send("something went wrong");
+     } )
+
      console.log(" promises ",promises);
 
 });

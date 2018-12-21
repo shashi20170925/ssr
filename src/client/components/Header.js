@@ -9,15 +9,17 @@ const authButton=auth?(
 ):    <a href="/api/auth/google">Login</a>  
 
     return(
-        <div>
-            <Link to="/">React SSR-SEO</Link>
-            <div>
-            <Link to="/users">Users</Link>
-            <Link to="/Admins">Users</Link>
-{authButton}
-            </div>
+        <nav>
+        <div className={'nav-wrapper'}>
+            <Link to="/" className={'brand-logo'}>React SSR-SEO</Link>
+            <ul className='right'>
+           <li><Link to="/users">Users</Link></li> 
+           <li> <Link to="/Admins">Admins</Link></li> 
+<li>{authButton}</li>
+            </ul>
 
         </div>
+        </nav>
     );
 
 }
