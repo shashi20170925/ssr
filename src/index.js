@@ -27,21 +27,24 @@ app.use(
   );
 app.use(express.static('public'));
 app.get('*', (req, res) => {
-    const store=createStore(req);
+    const store = createStore(req);
 
-   const promises=matchRoutes(Routes,req.path).map(( {route})=>{
-      return route.loadData?route.loadData(store):null;   
-     });
-     Promise.all(promises).then(()=>{
-        res.send(renderer(req, store));
+    const promises = matchRoutes(Routes, req.path).map(({
+        route
+    }) => {
+        return route.loadData ? route.loadData(store) : null;
+    });
 
-     }).catch(()=>{
-res.send("something went wrong");
-     } )
-
-     console.log(" promises ",promises);
-
-});
+    const render=() => {
+        const context={};
+        const content=renderer(req,store,context);
+        if(context.notFound){
+            res.status(404);
+        }
+        res.send(content);
+   
+};
+    Promise.all(promises).then(render).catch(render)});
 
 app.listen(3000, () => {
 
