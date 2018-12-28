@@ -28,12 +28,23 @@ app.use(
 app.use(express.static('public'));
 app.get('*', (req, res) => {
     const store = createStore(req);
+const promises = matchRoutes(Routes, req.path).map(({
+    route
+}) => {
+    return route.loadData ?
+        route.loadData(store) :
+        null;
+}).map((promise) => {
+    if (promise) {
+        return new Promise(
+            (resolve, reject) => {
+                promise.then(resolve).catch(resolve);
+            }
+        );
 
-    const promises = matchRoutes(Routes, req.path).map(({
-        route
-    }) => {
-        return route.loadData ? route.loadData(store) : null;
-    });
+    }
+   
+})
 
     const render=() => {
         const context={};
