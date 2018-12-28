@@ -47,8 +47,16 @@ const promises = matchRoutes(Routes, req.path).map(({
 })
 
     const render=() => {
+
         const context={};
+       // console.log(" context ", context);
+
         const content=renderer(req,store,context);
+        //Need to fix the server side redirect 
+        // if(context.url){
+        //     return res.redirect(301,context.url);
+        // }
+        
         if(context.notFound){
             res.status(404);
         }
