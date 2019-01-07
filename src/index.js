@@ -4,6 +4,7 @@ import renderer from './helpers/renderer';
 import createStore from './helpers/createStore';
 import {matchRoutes} from 'react-router-config';
 import Routes from './client/Routes';
+import serverless from "serverless-http";
 
 import proxy from 'express-http-proxy';
 //import React from 'react';
@@ -70,3 +71,5 @@ app.listen(3000, () => {
     console.log(" listening on port 3000");
 
 });
+
+
