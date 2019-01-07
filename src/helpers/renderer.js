@@ -9,10 +9,10 @@ import serialize from 'serialize-javascript';
 import {Helmet} from 'react-helmet';
 
 
-export default(req, store, context)=>{
+export default(path, store, context)=>{
     const content = renderToString( 
         <Provider store={store}>
-        <StaticRouter location={req.path} context={content}>
+        <StaticRouter location={path} context={content}>
       <div>
       {renderRoutes(Routes)}
       </div>

@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: ssr-on-express-service # NOTE: update this with your service name
+service: ssr-no-express # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -46,8 +46,8 @@ provider:
 #    variable1: value1
 
 # you can add packaging information here
-#package:
-#  include:
+# package:
+#   artifact: dist.zip
 #    - include-me.js
 #    - include-me-dir/**
 #  exclude:
@@ -55,8 +55,8 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  server-render-lambda:
-    handler: handler.appHandler
+  ssr:
+    handler: handler.myHandler
     events:
           - http:
               path: first
